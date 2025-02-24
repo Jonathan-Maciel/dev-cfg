@@ -1,0 +1,51 @@
+version: 1.0
+app:
+  # build id to deploy
+  # version: 1.0-SNAPSHOT-20230716015630
+  # number of instances
+  instances:
+    # q: consider availability zones? 
+
+    # min number of instances. can be 0 for scale to 0. default to 1.
+    min: 1
+    # max number of instances. defaults to 1 if min == 0, otherwise defaults to min
+    # q: what's the overall limit?
+    max: 2
+
+  # enable public endpoint
+  endpoints: public
+
+  resources:
+    # max cpu, defaults to 1 cpu limit, half of that for min, min >= 1
+    # q: what's the overall limit?
+    # q: do we support fractions?
+    cpu: 1
+    # memory limit is based on cpu value: 1:3 memory ratio, e.g. 1 cpu == 3 gb
+    # ephemeral disk limit will be set to 1GB  force change
+  # List of environment variables that set for the application
+  # Liberty encrypted values are supported only if referenced in server.xml
+  env:
+    - name: JVM_ARGS # q: make that as a top level 'jvmArguments' property?
+      value: "-DenvironmentType=stage"
+    - name: MY_ENV
+      value: "1"
+  # List of variables that can be referenced in server.xml
+  # Liberty encrypted values are supported
+  variables:
+    - name: io_openliberty_sample_system_inMaintenance
+      value: "false"
+    - name: discoveryEndpoint
+      value: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_eksr97OJU/.well-known/openid-configuration"
+    - name: clientId
+      value: 7rgjkvbjl487r2i1bvialvj2f4
+    - name: clientSecret
+      value: "{aes}AIUxkkmTE73hJrAj3oN5OMYQnC9j3NWNJNTXXAchJ97qyrr7MHYMmn1NEtxgHXFqmYp8VNEAYhB5hJS8voLsRYyfA/7GpDdznGs/DtYEqzlw"
+  # observability:
+  #  cloudwatch:   
+  #    arn: arn:aws:logs:region:account-id:destination:destination_name
+  #    logGroup: myLogGroup
+  #    region: us-east-1
+  version: "b84f7e8e-edfa-491d-837b-fe9e1855257f"
+# probes
+# dynamic scaling
+# scaling to 0
