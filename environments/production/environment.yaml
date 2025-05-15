@@ -14,7 +14,7 @@ app:
     max: 2
 
   # enable public endpoint
-  endpoints: public
+  # endpoints: public
   
   resources:
     # max cpu, defaults to 1 cpu limit, half of that for min, min >= 1
